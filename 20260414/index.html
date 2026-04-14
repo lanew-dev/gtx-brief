@@ -7,6 +7,130 @@
 </head>
 <body style="margin:0;padding:0;background-color:#f5f5f4;font-family:'Noto Sans TC',Arial,sans-serif;">
 
+<style>
+#pw-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #0f4c75;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#pw-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 36px;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  max-width: 360px;
+  width: 90%;
+}
+#pw-logo {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f4c75;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+#pw-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1c1917;
+  margin-bottom: 6px;
+}
+#pw-sub {
+  font-size: 13px;
+  color: #78716c;
+  margin-bottom: 24px;
+}
+#pw-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e7e5e4;
+  border-radius: 8px;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  transition: border 0.2s;
+}
+#pw-input:focus {
+  border-color: #0f4c75;
+}
+#pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #0f4c75;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#pw-btn:hover {
+  background: #1a6c9a;
+}
+#pw-error {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 10px;
+  display: none;
+}
+#pw-hint {
+  font-size: 11px;
+  color: #a8a29e;
+  margin-top: 16px;
+}
+</style>
+
+<div id="pw-overlay">
+  <div id="pw-box">
+    <div id="pw-logo">LA NEW 開發部情報系統</div>
+    <div id="pw-title">Gore-Tex 每日快報</div>
+    <div id="pw-sub">請輸入存取密碼</div>
+    <input id="pw-input" type="password" placeholder="••••••••" maxlength="20"
+      onkeydown="if(event.key==='Enter') checkPw()" autofocus />
+    <button id="pw-btn" onclick="checkPw()">確認進入</button>
+    <div id="pw-error">密碼錯誤，請重新輸入</div>
+    <div id="pw-hint">僅限 LA NEW 開發部同仁使用</div>
+  </div>
+</div>
+
+<script>
+function checkPw() {
+  var input = document.getElementById('pw-input').value;
+  var hash = 0;
+  for (var i = 0; i < input.length; i++) {
+    var c = input.charCodeAt(i);
+    hash = ((hash << 5) - hash) + c;
+    hash |= 0;
+  }
+  // 正確密碼的 hash
+  if (input === atob('OTY5ODk3ODM=')) {
+    document.getElementById('pw-overlay').style.display = 'none';
+    sessionStorage.setItem('gtx_auth', '1');
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+// 本次瀏覽已驗證則直接顯示
+if (sessionStorage.getItem('gtx_auth') === '1') {
+  window.addEventListener('DOMContentLoaded', function() {
+    var ov = document.getElementById('pw-overlay');
+    if (ov) ov.style.display = 'none';
+  });
+}
+</script>
+
+
 <!-- 外層容器 -->
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f5f4;">
 <tr><td align="center" style="padding:24px 12px;">
