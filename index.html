@@ -8,7 +8,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5f4; color: #1c1917; }
 
-/* ── 密碼保護 overlay ── */
+/* ── 密碼保護 ── */
 #pw-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background: #0f4c75; z-index: 99999;
@@ -38,7 +38,7 @@ body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5
 #pw-error { color: #dc2626; font-size: 13px; margin-top: 10px; display: none; }
 #pw-hint { font-size: 11px; color: #a8a29e; margin-top: 16px; }
 
-/* ── 主體內容 ── */
+/* ── 主體 ── */
 #main-content { display: none; }
 
 .hero {
@@ -49,34 +49,26 @@ body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5
   display: inline-block; background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.3);
   border-radius: 20px; padding: 4px 14px;
-  font-size: 11px; letter-spacing: 2px; font-weight: 700;
-  margin-bottom: 14px;
+  font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 14px;
 }
 .hero h1 { font-size: 24px; font-weight: 800; line-height: 1.4; margin-bottom: 8px; }
 .hero-date { font-size: 13px; opacity: 0.75; margin-top: 4px; }
 .hero-divider { width: 40px; height: 2px; background: rgba(255,255,255,0.4); margin: 18px auto; }
 .hero-summary { font-size: 14px; line-height: 1.7; opacity: 0.92; max-width: 540px; margin: 0 auto; }
 
-/* ── 最新週報精選區塊 ── */
+/* ── 最新精選 ── */
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 2px;
-  color: #0f4c75; text-transform: uppercase;
-  padding: 28px 24px 10px; max-width: 680px; margin: 0 auto;
+  color: #0f4c75; padding: 28px 24px 10px;
+  max-width: 680px; margin: 0 auto;
 }
-.latest-card {
-  max-width: 680px; margin: 0 auto 8px; padding: 0 16px;
-}
+.latest-card { max-width: 680px; margin: 0 auto 8px; padding: 0 16px; }
 .latest-card-inner {
   background: #fff; border-radius: 14px; padding: 24px 28px;
-  border: 1px solid #e7e5e4;
-  box-shadow: 0 2px 12px rgba(15,76,117,0.07);
+  border: 1px solid #e7e5e4; box-shadow: 0 2px 12px rgba(15,76,117,0.07);
 }
-.latest-card-inner h2 {
-  font-size: 17px; font-weight: 800; color: #0f4c75; margin-bottom: 6px;
-}
-.latest-card-inner .meta {
-  font-size: 12px; color: #a8a29e; margin-bottom: 14px;
-}
+.latest-card-inner h2 { font-size: 17px; font-weight: 800; color: #0f4c75; margin-bottom: 6px; }
+.latest-card-inner .meta { font-size: 12px; color: #a8a29e; margin-bottom: 14px; }
 .highlights { list-style: none; }
 .highlights li {
   font-size: 13px; line-height: 1.65; color: #44403c;
@@ -93,28 +85,30 @@ body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5
 }
 .latest-link:hover { background: #1a6c9a; }
 
-/* ── 歷史週報列表 ── */
+/* ── 歷史週報 ── */
 .history-label {
   font-size: 11px; font-weight: 700; letter-spacing: 2px;
-  color: #78716c; text-transform: uppercase;
-  padding: 24px 24px 10px; max-width: 680px; margin: 0 auto;
+  color: #78716c; padding: 24px 24px 10px;
+  max-width: 680px; margin: 0 auto;
   border-top: 1px solid #e7e5e4;
 }
-.history-list { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+.history-list { max-width: 680px; margin: 0 auto; padding: 0 16px 32px; }
 .history-card {
-  background: #fff; border-radius: 12px; padding: 18px 22px;
+  background: #fff; border-radius: 12px; padding: 16px 20px;
   margin-bottom: 10px; border: 1px solid #e7e5e4;
   transition: box-shadow 0.2s;
 }
 .history-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.history-card a { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 16px; }
-.history-date { font-size: 15px; font-weight: 700; color: #0f4c75; white-space: nowrap; }
-.history-desc { font-size: 12px; color: #78716c; margin-top: 3px; line-height: 1.5; }
-.history-arrow { margin-left: auto; color: #c4c2bf; font-size: 16px; }
+.history-card a { text-decoration: none; color: inherit; display: flex; align-items: flex-start; gap: 14px; }
+.history-main { flex: 1; }
+.history-date { font-size: 15px; font-weight: 700; color: #0f4c75; }
+.history-range { font-size: 10px; color: #a8a29e; margin-top: 2px; }
+.history-desc { font-size: 12px; color: #78716c; margin-top: 5px; line-height: 1.5; }
+.history-arrow { color: #c4c2bf; font-size: 18px; margin-top: 2px; flex-shrink: 0; }
 
 .footer {
-  text-align: center; padding: 32px 24px;
-  font-size: 11px; color: #a8a29e; margin-top: 8px;
+  text-align: center; padding: 28px 24px;
+  font-size: 11px; color: #a8a29e;
 }
 </style>
 </head>
@@ -137,28 +131,30 @@ body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5
 <!-- ── 主體內容 ── -->
 <div id="main-content">
 
-  <!-- Hero：最新週報標題 + 摘要 -->
+  <!-- Hero：最新一期標題 -->
   <div class="hero">
     <div class="hero-badge">LA NEW 開發部情報系統</div>
     <h1>Gore-Tex ／防水防潑水鞋款<br>每週情報週報</h1>
-    <div class="hero-date">2026/04/20</div>
+    <div class="hero-date">最新一期：2026 年 4 月 20 日</div>
     <div class="hero-divider"></div>
-    <div class="hero-summary">本期聚焦：PALLADIUM 旋鈕防水鞋新作、雨天 GORE‑TEX 鞋款挑選要點、La Sportiva 新版 Ultra Raptor 3 GTX 評測。</div>
+    <div class="hero-summary">
+      本週聚焦：NB 1906 GTX 深藍新色發售、Slam Jam × Salomon XA PRO 3D GTX 登場、Nike Vomero 18 GTX 路跑旗艦款、ELLE Taiwan 防水鞋原理深解，以及 La Sportiva Ultra Raptor 3 GTX 深度評測。
+    </div>
   </div>
 
-  <!-- 最新週報精選 -->
-  <div class="section-label">本期精選</div>
+  <!-- 最新精選 -->
+  <div class="section-label">本期精選（2026/04/14–04/20）</div>
   <div class="latest-card">
     <div class="latest-card-inner">
       <h2>2026/04/20 週報</h2>
-      <div class="meta">資料期間：2026/01/01–04/14　共 15 則報導</div>
+      <div class="meta">資料期間：2026/04/14 – 2026/04/20　　共 9 則報導</div>
       <ul class="highlights">
-        <li>LA NEW GORE-TEX Invisible Fit 第3代：FLAGSTAFF 3.5L 膜＋HANDS-FREE 免手穿設計</li>
-        <li>Nike Dunk Low Gore-Tex「Crimson」：首款大量發售 GTX 版，售價 $150 USD</li>
-        <li>New Balance 2002R Gore-Tex Protection Pack：三色組合，2026/01/01 正式發售</li>
-        <li>Merrell × FP Movement Cham Storm GORE-TEX：時尚戶外膠囊，售價 $180 USD</li>
-        <li>PFAS-Free DWR／Gore-Tex ePE：碳足跡降低 39%，多品牌全面轉向無毒防水</li>
-        <li>Salomon X Ultra 5 GTX 奪 Treeline Review 2026 最佳整體登山鞋</li>
+        <li>New Balance 1906 GORE-TEX「Protection Pack」深藍海軍藍配色，size? 4/16 獨家發售</li>
+        <li>Slam Jam × Salomon XA PRO 3D GORE-TEX 聯名，全黑都市越野，$170 USD（2/24 廣泛發售）</li>
+        <li>Nike Vomero 18 GORE-TEX 防水路跑旗艦款，ReactX+ZoomX 雙層緩震，NT$5,600</li>
+        <li>Salomon X ULTRA 360 GORE-TEX 登山越野主力款，ELLE Taiwan 春季防水鞋特輯重點推薦</li>
+        <li>ELLE Taiwan 深解 GORE-TEX 防水原理：ePTFE 薄膜、壓膠車縫、DWR 三層防護機制</li>
+        <li>La Sportiva Ultra Raptor 3 GTX 評測：ePE 防水膜 + FriXion 外底，$200 USD</li>
       </ul>
       <a class="latest-link" href="20260420/">🔗 瀏覽完整週報內容</a>
     </div>
@@ -167,34 +163,44 @@ body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: #f5f5
   <!-- 歷史週報 -->
   <div class="history-label">歷史週報</div>
   <div class="history-list">
+
+    <!-- 2026/04/20 — 最新，排最上 -->
+    <div class="history-card">
+      <a href="20260420/">
+        <div class="history-main">
+          <div class="history-date">2026/04/20 週報</div>
+          <div class="history-range">資料期間：2026/04/14 – 04/20</div>
+          <div class="history-desc">NB 1906 GTX 深藍新色 · Slam Jam × Salomon XA PRO 3D GTX · Nike Vomero 18 GTX · La Sportiva Ultra Raptor 3 GTX 評測 · PALLADIUM DISC WP+ 上市</div>
+        </div>
+        <div class="history-arrow">›</div>
+      </a>
+    </div>
+
+    <!-- 2026/04/15 — Q1 特別彙整 -->
     <div class="history-card">
       <a href="20260415/">
-        <div>
-          <div class="history-date">2026/04/15 週報</div>
-          <div class="history-desc">LA NEW GTX Invisible Fit 第3代 · Nike Dunk Low GTX Crimson · NB 2002R GTX Protection Pack · Merrell × FP Movement GTX · PALLADIUM DISC WP+</div>
+        <div class="history-main">
+          <div class="history-date">2026/04/15 週報（Q1 特別彙整）</div>
+          <div class="history-range">資料期間：2026/01/01 – 04/14 · 共 15 則</div>
+          <div class="history-desc">LA NEW GTX Invisible Fit 第3代 · Nike Dunk Low GTX Crimson · NB 2002R GTX Protection Pack · Merrell × FP Movement GTX · PALLADIUM DISC WP+ · Salomon XT-6 GTX · PFAS-Free ePE 材料趨勢</div>
         </div>
         <div class="history-arrow">›</div>
       </a>
     </div>
-    <div class="history-card">
-  <a href="20260420/">
-    <div>
-      <div class="history-date">2026/04/20 週報</div>
-      <div class="history-desc">2026 PALLADIUM 防水鞋 · GORE-TEX鞋子真的防水嗎？Ni · La Sportiva Ultra  · ⋯</div>
-    </div>
-    <div class="history-arrow">›</div>
-  </a>
-</div>
-<!-- 後續每週新增卡片置於此處最上方 -->
+
+    <!-- 2026/04/14 — 最早一期 -->
     <div class="history-card">
       <a href="20260414/">
-        <div>
-          <div class="history-date">2026/04/14</div>
-          <div class="history-desc">Nike Dunk Low GTX Crimson · NB 1906R GTX · Alo Trail · UNDEFEATED × Timberland GTX · LA NEW Invisible Fit 第3代</div>
+        <div class="history-main">
+          <div class="history-date">2026/04/14 週報</div>
+          <div class="history-range">資料期間：2026/04/07 – 04/14</div>
+          <div class="history-desc">Nike Dunk Low GTX Crimson · NB 1906R GTX · Alo Trail · UNDEFEATED × Timberland GTX · GORE-TEX EXTRAGUARD 戰術概念 · LA NEW Invisible Fit 第3代</div>
         </div>
         <div class="history-arrow">›</div>
       </a>
     </div>
+
+    <!-- 後續每週新增卡片置於此處最上方 -->
   </div>
 
   <div class="footer">LA NEW 開發部情報系統 · 每週自動更新 · 所有週報均需密碼存取</div>
@@ -213,7 +219,6 @@ function checkPw() {
     document.getElementById('pw-input').focus();
   }
 }
-// 已登入過則直接顯示
 if (sessionStorage.getItem('gtx_auth') === '1') {
   document.getElementById('pw-overlay').style.display = 'none';
   document.getElementById('main-content').style.display = 'block';
