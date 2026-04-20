@@ -1,0 +1,113 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>週報</title>
+<style>
+:root{--blue:#0f4c75;--bg:#f5f7fb;--card:#ffffff;--text:#1c1917;--muted:#57534e;--badge:#e2e8f0;}
+*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC","PingFang TC",sans-serif;background:var(--bg);color:var(--text);}
+.hero{background:linear-gradient(135deg,var(--blue),#153e5c);padding:44px 18px;color:#fff;}
+.hero-inner{max-width:980px;margin:0 auto;}
+.hero h1{margin:0 0 8px;font-size:26px;letter-spacing:.2px}
+.hero .range{opacity:.9;font-size:14px}
+.container{max-width:980px;margin:0 auto;padding:18px;}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:7px 10px;border-radius:999px;font-size:12px}
+.section{margin:22px 0}
+.section h2{margin:0 0 10px;font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{grid-column:span 12;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(15,76,117,.08);border:1px solid #e5e7eb;display:flex;flex-direction:column}
+@media(min-width:760px){.card{flex-direction:row}.card .img{width:280px;flex:0 0 280px}}
+.card .img{background:#0b2f47;min-height:180px;position:relative}
+.card .img img{width:100%;height:100%;object-fit:cover;display:block}
+.card .content{padding:16px 16px 14px;flex:1}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.tag{background:var(--badge);color:#0f172a;padding:4px 8px;border-radius:999px;font-size:12px}
+.tag.en{background:#fde68a}
+.date{color:var(--muted);font-size:12px}
+.title{margin:0 0 10px;font-size:16px;line-height:1.35}
+.summary{margin:0;padding-left:18px;color:#111827}
+.summary li{margin:6px 0;color:#1f2937;font-size:14px;line-height:1.55}
+.link{margin-top:10px;display:inline-block;color:var(--blue);font-weight:700;text-decoration:none}
+.link:hover{text-decoration:underline}
+.footer{padding:22px 18px;color:#64748b;text-align:center;font-size:12px}
+</style></head><body>
+
+<style>
+#pw-overlay { position:fixed;top:0;left:0;right:0;bottom:0;background:#0f4c75;z-index:99999;display:flex;align-items:center;justify-content:center; }
+#pw-box { background:#fff;border-radius:16px;padding:40px 36px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.25);max-width:360px;width:90%; }
+#pw-logo { font-size:13px;font-weight:700;color:#0f4c75;letter-spacing:2px;margin-bottom:8px; }
+#pw-title { font-size:20px;font-weight:800;color:#1c1917;margin-bottom:6px; }
+#pw-sub { font-size:13px;color:#78716c;margin-bottom:24px; }
+#pw-input { width:100%;padding:12px 16px;border:2px solid #e7e5e4;border-radius:8px;font-size:18px;letter-spacing:4px;text-align:center;outline:none;box-sizing:border-box;margin-bottom:12px; }
+#pw-input:focus { border-color:#0f4c75; }
+#pw-btn { width:100%;padding:13px;background:#0f4c75;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer; }
+#pw-btn:hover { background:#1a6c9a; }
+#pw-error { color:#dc2626;font-size:13px;margin-top:10px;display:none; }
+#pw-hint { font-size:11px;color:#a8a29e;margin-top:16px; }
+</style>
+<div id="pw-overlay"><div id="pw-box">
+<div id="pw-logo">LA NEW 開發部情報系統</div>
+<div id="pw-title">Gore-Tex 週報</div>
+<div id="pw-sub">請輸入存取密碼</div>
+<input id="pw-input" type="password" placeholder="••••••••" maxlength="20" onkeydown="if(event.key==='Enter') checkPw()" autofocus/>
+<button id="pw-btn" onclick="checkPw()">確認進入</button>
+<div id="pw-error">密碼錯誤，請重新輸入</div>
+<div id="pw-hint">僅限 LA NEW 開發部同仁使用</div>
+</div></div>
+<script>
+function checkPw(){var i=document.getElementById('pw-input').value;if(i===atob('OTY5ODk3ODM=')){document.getElementById('pw-overlay').style.display='none';sessionStorage.setItem('gtx_auth','1');}else{document.getElementById('pw-error').style.display='block';document.getElementById('pw-input').value='';document.getElementById('pw-input').focus();}}
+if(sessionStorage.getItem('gtx_auth')==='1'){window.addEventListener('DOMContentLoaded',function(){var o=document.getElementById('pw-overlay');if(o)o.style.display='none';});}
+</script>
+
+<section class="hero"><div class="hero-inner">
+<h1>Gore-Tex ／防水防潑水鞋款 每週情報週報</h1>
+<div class="range">日期範圍：2026/04/13 – 2026/04/20（台北時間）</div>
+<div class="badges">
+  <div class="badge">品牌新品發表</div>
+  <div class="badge">Gore-Tex 授權動態</div>
+  <div class="badge">防水材料技術（DWR/eVent/OutDry/Futurelight）</div>
+  <div class="badge">市場與零售資訊</div>
+</div>
+</div></section>
+<div class="container">
+<section class="section"><h2>本週重點（3 則）</h2>
+<div class="grid">
+    <div class="card">
+      <div class="img"><img src="https://www.newspie.com.tw/wp-content/uploads/2026/04/palladium-off-bound-disc-wp.jpg" alt="" loading="lazy"/></div>
+      <div class="content">
+        <div class="meta"><span class="tag">品牌新品發表</span><span class="date">2026/04/07</span></div>
+        <h3 class="title">2026 PALLADIUM 防水鞋新作！OFF_BOUND DISC WP+ 旋鈕系統登場</h3>
+        <ul class="summary"><li>PALLADIUM 啟動 PALLADIUM[LAB] 計畫，首發 OFF_BOUND DISC WP+ 主打『FUNCTION MAKE IT FASHION』的都會戶外路線。</li>
+<li>鞋面延續 WATERPROOF PLUS 橘標防水科技，並加入熱熔薄膜透氣防水與防水塗層雙處理，搭配 DISC 旋鈕快速鞋帶系統提升穿脫與包覆調整效率。</li>
+<li>預計 4/11 起於全台門市與官網販售，提供多色選擇。</li></ul>
+        <a class="link" href="https://www.newspie.com.tw/palladium-20260407/" target="_blank" rel="noopener">原文連結</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="img"><img src="https://hips.hearstapps.com/hmg-prod/images/___-1744752455.jpg" alt="" loading="lazy"/></div>
+      <div class="content">
+        <div class="meta"><span class="tag">品牌新品發表</span><span class="date">2026/04/16</span></div>
+        <h3 class="title">GORE-TEX鞋子真的防水嗎？Nike、The North Face、Salomon 等鞋款整理</h3>
+        <ul class="summary"><li>ELLE 以雨天穿鞋情境解釋 GORE‑TEX 薄膜的『液態水進不來、汗氣出得去』原理，並說明多數戶外鞋採完整內襯鞋套結構與壓膠封縫。</li>
+<li>文內點名 Nike Vomero 18 / Pegasus Trail 5 GORE‑TEX、Air Max SNDR GORE‑TEX、Motiva GORE‑TEX 等，以及 Salomon XT‑6 GTX（PFC‑free GORE‑TEX ePE 膜）等作為例子。</li>
+<li>也提醒外層布料常搭配 DWR 耐久防潑水以減少表層吸水。</li></ul>
+        <a class="link" href="https://www.elle.com/tw/fashion/flash/g69301493/gore-tex-shoes-2026/" target="_blank" rel="noopener">原文連結</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="img"><img src="https://gearjunkie.com/wp-content/uploads/sites/2/2026/03/La-Sportiva-Ultra-Raptor-3.jpg" alt="" loading="lazy"/></div>
+      <div class="content">
+        <div class="meta"><span class="tag">品牌新品發表</span><span class="tag en">🌐 英文來源</span><span class="date">2026/03/30</span></div>
+        <h3 class="title">La Sportiva Ultra Raptor 3 GTX Trail Runners Review</h3>
+        <ul class="summary"><li>GearJunkie 評測指出 Ultra Raptor 3 GTX 重量約 1 磅 12 盎司，鞋楦更寬、更適合偏寬腳型，並加深 4mm 齒紋提升抓地。</li>
+<li>鞋面使用高強度 ripstop mesh（含回收材），並以 ePE GORE‑TEX 提供防水，搭配新的針織鞋領/後跟結構降低磨腳風險。</li>
+<li>定位更偏『hiker-first』的健行鞋，適合日常健行到長距離徒步。</li></ul>
+        <a class="link" href="https://gearjunkie.com/footwear/running-footwear/la-sportiva-ultra-raptor-3-gtx-trail-runners-review" target="_blank" rel="noopener">原文連結</a>
+      </div>
+    </div>
+    </div>
+</section>
+</div>
+<div class="footer">LA NEW 開發部情報系統 · 每週自動更新</div>
+</body></html>
