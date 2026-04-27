@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTX 週報｜2026 Q1 特別彙整（1/1–4/14）</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f4;
+      color: #1c1917;
+      min-height: 100vh;
+    }
+
+    /* ── PASSWORD OVERLAY ── */
+    #pw-overlay {
+      position: fixed;
+      inset: 0;
+      background: #1c1917;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      gap: 20px;
+    }
+    #pw-overlay h1 {
+      color: #fff;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+    #pw-overlay p {
+      color: #a8a29e;
+      font-size: 0.95rem;
+    }
+    #pw-overlay input {
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 2px solid #44403c;
+      background: #292524;
+      color: #fff;
+      font-size: 1rem;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.2s;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+    #pw-overlay input:focus { border-color: #78716c; }
+    #pw-overlay button {
+      padding: 12px 36px;
+      background: #e7e5e4;
+      color: #1c1917;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #pw-overlay button:hover { background: #fff; }
+    #pw-error {
+      color: #f87171;
+      font-size: 0.875rem;
+      display: none;
+    }
+    #pw-logo {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #e7e5e4;
+      margin-bottom: 4px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    #main-content { display: none; }
+
+    /* ── HEADER ── */
+    header {
+      background: #1c1917;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #292524;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+    .header-brand { display: flex; flex-direction: column; gap: 2px; }
+    .header-brand .logo {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .header-brand .logo span {
+      color: #a3e635;
+    }
+    .header-brand .subtitle {
+      font-size: 0.72rem;
+      color: #a8a29e;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+    }
+    .header-meta .tag {
+      background: #a3e635;
+      color: #1c1917;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .header-meta .count {
+      color: #78716c;
+      font-size: 0.72rem;
+    }
+
+    /* ── HERO BAND ── */
+    .hero-band {
+      background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+      padding: 48px 24px;
+      text-align: center;
+      border-bottom: 1px solid #292524;
+    }
+    .hero-band h1 {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+    .hero-band h1 em {
+      color: #a3e635;
+      font-style: normal;
+    }
+    .hero-band p {
+      margin-top: 10px;
+      color: #a8a29e;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-band .stats {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .hero-band .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-band .stat .num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #a3e635;
+    }
+    .hero-band .stat .lbl {
+      font-size: 0.72rem;
+      color: #78716c;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── TIMELINE LABEL ── */
+    .section-label {
+      max-width: 1100px;
+      margin: 40px auto 16px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #78716c;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .section-label hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid #d6d3d1;
+    }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .card-img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: #e7e5e4;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .card:hover .card-img-wrap img { transform: scale(1.04); }
+    .card-index {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #1c1917;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .card-category-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(28,25,23,0.82);
+      color: #a3e635;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(4px);
+    }
+    .card-body {
+      padding: 18px 20px 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-date {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #a8a29e;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-date::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a3e635;
+      flex-shrink: 0;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #1c1917;
+      margin-bottom: 10px;
+    }
+    .card-summary {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: #57534e;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+    .card-footer {
+      padding: 10px 20px 14px;
+      border-top: 1px solid #f5f5f4;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .card-source {
+      font-size: 11px;
+      color: #999;
+      text-align: right;
+    }
+    .card-source a {
+      color: #999;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card-source a:hover { color: #1c1917; text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1c1917;
+      color: #78716c;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    footer strong { color: #e7e5e4; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+        gap: 18px;
+      }
+      .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .header-meta { align-items: flex-start; }
+      .hero-band { padding: 36px 16px; }
+      .hero-band .stats { gap: 20px; }
+      .section-label { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ PASSWORD OVERLAY ═══════════════ -->
+<div id="pw-overlay">
+  <div id="pw-logo">GTX</div>
+  <h1>週報存取驗證</h1>
+  <p>請輸入密碼以查看內容</p>
+  <input type="password" id="pw-input" placeholder="••••••••" autocomplete="off" />
+  <button onclick="checkPassword()">進入</button>
+  <div id="pw-error">密碼錯誤，請再試一次</div>
+</div>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<div id="main-content">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="logo">GTX<span> 週報</span></div>
+        <div class="subtitle">GORE-TEX Intelligence Report</div>
+      </div>
+      <div class="header-meta">
+        <span class="tag">2026 Q1 特別彙整版</span>
+        <span class="count">2026 / 01 / 01 – 04 / 14 ｜共 15 則</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BAND -->
+  <div class="hero-band">
+    <h1>GTX 週報<br/><em>2026 Q1 特別彙整</em></h1>
+    <p>2026 / 01 / 01 — 04 / 14 ｜由新而舊完整排序</p>
+    <div class="stats">
+      <div class="stat"><span class="num">15</span><span class="lbl">則報導</span></div>
+      <div class="stat"><span class="num">8+</span><span class="lbl">品牌覆蓋</span></div>
+      <div class="stat"><span class="num">Q1</span><span class="lbl">2026 彙整</span></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE LABEL -->
+  <div class="section-label">
+    <span>最新至最舊</span>
+    <hr/>
+    <span>Apr → Jan</span>
+  </div>
+
+  <!-- CARDS GRID -->
+  <div class="cards-grid">
+
+    <!-- 1. 04/08 Merrell × FP Movement 新品 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+          alt="Merrell × FP Movement Cham Storm GORE-TEX"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 01</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 04 / 08</div>
+        <h2 class="card-title">Merrell × FP Movement Cham Storm GORE-TEX｜時尚戶外聯名</h2>
+        <p class="card-summary">Merrell 攜手 Free People 旗下運動線 FP Movement 推出 Cham Storm GORE-TEX 聯名款，以 Chameleon 系列原型為基礎加入 GORE-TEX 防水膜、FloatMax™ 泡棉中底，售價 $180 USD，專為都市戶外跨界設計。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.t3.com/active/hiking-walking/merrell-fp-movement-hiking-footwear-collection-0426" target="_blank" rel="noopener">T3</a></span>
+      </div>
+    </div>
+
+    <!-- 2. 04/08 Merrell 跨界時尚圈分析 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+          alt="Merrell 跟進 Arc'teryx、TNF 踏入時尚圈"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 02</span>
+        <span class="card-category-badge">分析</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 04 / 08</div>
+        <h2 class="card-title">Merrell 跟進 Arc'teryx、TNF 踏入時尚圈｜GTX 戶外鞋正式跨界</h2>
+        <p class="card-summary">T3 指出 Merrell 與 FP Movement 聯名是繼 Arc'teryx 與 The North Face 之後，又一戶外功能品牌正式跨入時尚領域的代表案例，GORE-TEX 技術成為連結機能與潮流的橋樑。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.t3.com/active/hiking-walking/merrell-fp-movement-hiking-footwear-collection-0426" target="_blank" rel="noopener">T3</a></span>
+      </div>
+    </div>
+
+    <!-- 3. 04/07 PALLADIUM OFF_BOUND DISC WP+ -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600"
+          alt="PALLADIUM OFF_BOUND DISC WP+"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 03</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 04 / 07</div>
+        <h2 class="card-title">PALLADIUM OFF_BOUND DISC WP+ 防水波浪鞋｜旋鈕鞋帶登場</h2>
+        <p class="card-summary">法國軍靴品牌 PALLADIUM 推出 PALLADIUM[LAB] 首發新作，OFF_BOUND DISC WP+ 搭載首創「DISC 旋鈕快速鞋帶系統」、橘標 WATERPROOF PLUS 防水科技，6mm 掌跟差波浪大底，售價 NT$3,580，2026/4/11 台灣全台門市及官網開賣，共五色。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.newspie.com.tw/palladium-20260407/" target="_blank" rel="noopener">News Pie</a></span>
+      </div>
+    </div>
+
+    <!-- 4. 03/17 Salomon X Ultra 5 最佳登山鞋 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=600"
+          alt="2026 最佳登山鞋評選"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 04</span>
+        <span class="card-category-badge">評測</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 03 / 17</div>
+        <h2 class="card-title">2026 最佳登山鞋評選｜Salomon X Ultra 5 GTX 奪最佳整體</h2>
+        <p class="card-summary">多家戶外媒體 2026 年評選中，Salomon X Ultra 5 GORE-TEX 獲「最佳整體登山鞋」，以防水機能、耐磨大底及長距離穿著舒適性勝出。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.outdoorgearlab.com/topics/shoes-and-boots/best-hiking-shoes" target="_blank" rel="noopener">Outdoor Gear Lab</a></span>
+      </div>
+    </div>
+
+    <!-- 5. 03/11 Salomon XT-6 新色 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600"
+          alt="Salomon XT-6 GORE-TEX Eucalyptus"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 05</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 03 / 11</div>
+        <h2 class="card-title">Salomon XT-6 GORE-TEX 新色「Eucalyptus/Silver Sage」</h2>
+        <p class="card-summary">Salomon XT-6 GORE-TEX 推出低飽和配色「Eucalyptus/Silver Sage」，採用不含 PFC 的 GORE-TEX ePE 薄膜，3 月 11 日台灣上架，售價 ¥31,900 JPY（約 $202 USD）。XT-6 也同步推出「Concord Grape 葡萄紫」配色（2/4 日本發售）。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://hypebeast.com/zh/2026/3/salomon-xt-6-gore-tex-eucalyptus-silver-sage-l49202300-release-info" target="_blank" rel="noopener">Hypebeast</a></span>
+      </div>
+    </div>
+
+    <!-- 6. 03/06 NB 1906 GTX 全黑版 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=600"
+          alt="New Balance 1906 GORE-TEX 全黑版"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 06</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 03 / 06</div>
+        <h2 class="card-title">New Balance 1906 GORE-TEX 全黑版｜媲美 Salomon 越野機能</h2>
+        <p class="card-summary">New Balance 為 1906 加入 GORE-TEX 防水膜與 Quick Lace 系統，全黑版（Blackout）於 3/15 在 atmos Tokyo 先行發售，Lapstone &amp; Hammer 及多家零售商提前開賣，售價 $180 USD。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.highsnobiety.com/p/new-balance-1906-gore-tex-black/" target="_blank" rel="noopener">Highsnobiety</a></span>
+      </div>
+    </div>
+
+    <!-- 7. 03/06 NB 1906R GTX 三色組 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+          alt="New Balance 1906R GORE-TEX 三色"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 07</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 03 / 06</div>
+        <h2 class="card-title">New Balance 1906R GORE-TEX 三色組｜史上首次加入 GTX 防水</h2>
+        <p class="card-summary">NB 1906R 史上首次導入 GORE-TEX，三色「Grey/Khaki」「Black」「Wheat」同步 Spring 2026 上市，採 No-Sew 合成材料面板、Quick Pull 快拉鞋帶，售價 $170 USD。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://sneakernews.com/2025/12/17/new-balance-1906r-gore-tex-spring-2026/" target="_blank" rel="noopener">Sneaker News</a></span>
+      </div>
+    </div>
+
+    <!-- 8. 02/18 PFAS-Free ePE 技術 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600"
+          alt="PFAS-Free Gore-Tex ePE 薄膜"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 08</span>
+        <span class="card-category-badge">技術</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 02 / 18</div>
+        <h2 class="card-title">PFAS-Free 時代來臨｜Gore-Tex ePE 薄膜全面取代舊款 ePTFE</h2>
+        <p class="card-summary">Gore-Tex 正式宣布新一代 ePE（擴展聚乙烯）薄膜全面替代傳統 ePTFE，PFAS-Free 且製程碳足跡更低，2026 年起鞋款將陸續換用新膜，Salomon XT-6 GTX 2026 色即採用此技術。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.gore-tex.com/en_au/technology/new-products" target="_blank" rel="noopener">GORE-TEX Brand</a></span>
+      </div>
+    </div>
+
+    <!-- 9. 02/13 DWR vs GTX 解析 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1556906781-9a9073ba2d7f?w=600"
+          alt="DWR vs GTX 防水解析"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 09</span>
+        <span class="card-category-badge">深度</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 02 / 13</div>
+        <h2 class="card-title">DWR vs GTX 膜層解析｜2026 防水跑鞋值不值得買？</h2>
+        <p class="card-summary">媒體深入評測比較 DWR 防潑水塗層與 GORE-TEX 膜層的實際差異，結論是 GTX 膜層在長時間豪雨中防水表現明顯優於 DWR，但透氣性與重量需取捨，適合台灣梅雨季選鞋參考。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.highsnobiety.com/p/new-balance-1906-gore-tex-black/" target="_blank" rel="noopener">Highsnobiety</a></span>
+      </div>
+    </div>
+
+    <!-- 10. 02/05 台灣市場分析 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600"
+          alt="2026 台灣機能鞋履市場分析"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 10</span>
+        <span class="card-category-badge">市場</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 02 / 05</div>
+        <h2 class="card-title">2026 台灣機能鞋履市場分析｜LA NEW GORE-TEX 第3代樹立高標準</h2>
+        <p class="card-summary">台灣媒體分析 LA NEW GORE-TEX 第3代的市場意義：台灣鞋業龍頭以自主研發專利技術（HANDS-FREE + 專利防滑大底）結合頂規 GTX 3.5L 薄膜，在春節消費旺季精準卡位，為 2026 年台灣機能鞋履市場設立新標竿。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://eyeontw.com/2026/02/2026機能鞋履市場新標竿/" target="_blank" rel="noopener">EYE On Taiwan</a></span>
+      </div>
+    </div>
+
+    <!-- 11. 02/02 LA NEW 第3代 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600"
+          alt="LA NEW GORE-TEX Invisible Fit 第3代"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 11</span>
+        <span class="card-category-badge">新品</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 02 / 02</div>
+        <h2 class="card-title">LA NEW GORE-TEX Invisible Fit 第3代｜HANDS-FREE 免手穿</h2>
+        <p class="card-summary">台灣鞋業龍頭 LA NEW 春節前發表 GORE-TEX INVISIBLE FIT 第3代，採 GORE-TEX FLAGSTAFF 3.5L 薄膜，首度導入 HANDS-FREE 免手穿設計（TPU 後跟鞋拔），搭配自主研發專利防滑大底（M530054），為馬年春節長假打造全天候機能選擇。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://kenlu.net/2026/02/la-new-gore-tex-invisible-fit-3rd-generation-official-news/" target="_blank" rel="noopener">KENLU.net</a></span>
+      </div>
+    </div>
+
+    <!-- 12. 01/28 Salomon XT-6 米蘭奧運色 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600"
+          alt="Salomon XT-6 GTX 米蘭冬奧聯名色"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 12</span>
+        <span class="card-category-badge">聯名</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 01 / 28</div>
+        <h2 class="card-title">Salomon XT-6 GTX 米蘭-科爾蒂納 2026 奧運聯名色</h2>
+        <p class="card-summary">Salomon 推出 XT-6 GORE-TEX 米蘭-科爾蒂納 2026 冬季奧運聯名配色，台灣售價 NT$1,680，以越野跑鞋為基底融入冬奧主題配色。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.facebook.com/100063819531276/posts/1422778806526090/" target="_blank" rel="noopener">Facebook</a></span>
+      </div>
+    </div>
+
+    <!-- 13. 01/20 Esquire HK 12款必買 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600"
+          alt="Esquire HK 2026 年必買 Gore-Tex 鞋"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 13</span>
+        <span class="card-category-badge">選物</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 01 / 20</div>
+        <h2 class="card-title">Esquire HK 盤點 2026 年 12 款必買 Gore-Tex 鞋</h2>
+        <p class="card-summary">Esquire Hong Kong 盤點 2026 年值得入手的 12 款 GORE-TEX 鞋履，涵蓋登山健行、休閒通勤、潮流聯名三大類，包括 Salomon、NB、Merrell、LA NEW 均上榜。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.esquirehk.com/style/fashion/12-gore-tex-sneakers-2026" target="_blank" rel="noopener">Esquire HK</a></span>
+      </div>
+    </div>
+
+    <!-- 14. 01/13 GTX 化趨勢分析 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1556906781-9a9073ba2d7f?w=600"
+          alt="2026 GTX 化趨勢分析"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 14</span>
+        <span class="card-category-badge">趨勢</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 01 / 13</div>
+        <h2 class="card-title">分析：為何 2026 年幾乎所有主流鞋款都在 Gore-Tex 化？</h2>
+        <p class="card-summary">從 Nike Dunk、NB 1906R 到 PALLADIUM OFF_BOUND，各大品牌競相導入 GORE-TEX 授權。業界分析指出，「機能即時尚」趨勢催動 GTX 從戶外鞋跨入休閒潮流領域，Gore-Tex 授權已成品牌差異化的關鍵籌碼。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://www.t3.com/active/hiking-walking/merrell-fp-movement-hiking-footwear-collection-0426" target="_blank" rel="noopener">T3 分析</a></span>
+      </div>
+    </div>
+
+    <!-- 15. 01/01 NB 2002R 三色發售 -->
+    <div class="card">
+      <div class="card-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+          alt="New Balance 2002R GORE-TEX Protection Pack"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/600x300/292524/a3e635?text=GTX+Weekly'"
+        />
+        <span class="card-index"># 15</span>
+        <span class="card-category-badge">發售</span>
+      </div>
+      <div class="card-body">
+        <div class="card-date">2026 / 01 / 01</div>
+        <h2 class="card-title">New Balance 2002R GORE-TEX「Protection Pack」三色｜元旦正式發售</h2>
+        <p class="card-summary">NB 2002R GORE-TEX Protection Pack（Grey、Black、Wheat）三色同步於 2026/1/1 透過 NewBalance.com 及指定通路發售，各色售價 $170 USD，延續 ABZORB SBS 中底搭配 GORE-TEX 防水膜。</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-source">來源：<a href="https://sneakerbardetroit.com/new-balance-2002r-gore-tex-pack-2026/" target="_blank" rel="noopener">Sneaker Bar Detroit</a></span>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <footer>
+    <strong>GTX 週報</strong> ｜ 2026 Q1 特別彙整版（01/01–04/14）<br/>
+    <span style="margin-top:6px;display:inline-block;">共 15 則報導 ｜ 由新而舊排列 ｜ 內容版權歸各原始來源所有</span>
+  </footer>
+
+</div><!-- /main-content -->
+
+<script>
+  (function () {
+    var CORRECT_PW = '96989783';
+    var STORAGE_KEY = 'gtx_brief_auth_v2';
+
+    function unlock() {
+      document.getElementById('pw-overlay').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    }
+
+    // Check existing auth
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') {
+        unlock();
+        return;
+      }
+    } catch (e) {}
+
+    // Enter key support
+    document.getElementById('pw-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    window.checkPassword = function () {
+      var val = document.getElementById('pw-input').value;
+      if (val === CORRECT_PW) {
+        try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+        unlock();
+      } else {
+        var errEl = document.getElementById('pw-error');
+        errEl.style.display = 'block';
+        document.getElementById('pw-input').value = '';
+        setTimeout(function () { errEl.style.display = 'none'; }, 2500);
+      }
+    };
+  })();
+</script>
+
+</body>
+</html>
